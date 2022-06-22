@@ -18,6 +18,8 @@ In order to estimate the correlation between iHS and the genomic factors, you ha
 
 The script will automatically generate a `results` folder where figures and tables of each population and window size will be saved (5 populations x 5 windows sizes = 25 tables and 25 figures). The figures will be saved as pdf, while the tables will be compressed as text files, being easy to open in a spreadsheet.
 
+See this [bioRxiv preprint](https://www.biorxiv.org/content/10.1101/2021.12.20.473463v1) for further details.
+
 
 ## References
 
