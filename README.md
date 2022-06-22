@@ -14,7 +14,7 @@ iHS was calculated across five human populations from the [1000 genomes project]
 - Han Chinese (CHBD)
 - Peruvians (PELD)
 
-In order to estimate the correlation between iHS and the genomic factors, you have to type the command `echo +x MDR_script.py` in the terminal and then you can use run the script by typing `./MDR_script.py`. Note that you need python 3.8 and the corresponding python libraries installed in order to run this script (you can find them in the Imports section of `MDR_script.py`).
+In order to estimate the correlation between iHS and the genomic factors, you have to type the command `echo +x MDR_script.py` in the terminal and then you can run the script by typing `./MDR_script.py`. Note that you need python 3.8 and the corresponding python libraries installed in order to run this script (you can find them in the Imports section of `MDR_script.py`).
 
 The script will automatically generate a `results` folder where figures and tables of each population and window size will be saved. The figures will be saved as pdf, while the tables will be compressed as text files, being easy to open in a spreadsheet.
 
