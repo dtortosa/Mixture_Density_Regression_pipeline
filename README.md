@@ -4,14 +4,14 @@ Pipeline used to test the association between the integrated haplotype Score (iH
 
 ## Instructions
 
-In order to run the MDR, you need to copy the script "MDR_script.py" and the folder "data". This folder include data for iHS and genomic factors for:
+In order to run the MDR, you need to have the script `MDR_script.py` and the folder `data` in the same directory. This folder include data of iHS and genomic factors for:
 
 - Five human populations from the [1000 genomes project](https://www.internationalgenome.org/):
 	- Yoruba (YRID)
 	- Toscani (TSID)
 	- Utah residents (CEUD)
 	- Han Chinese (CHBD)
-	- Peruvians (CHBD)
+	- Peruvians (PELD)
 
 - Five window sizes:
 	- 50 kb
@@ -22,7 +22,7 @@ In order to run the MDR, you need to copy the script "MDR_script.py" and the fol
 
 To run the script, you have to type the command `echo +x MDR_script.py` in the terminal and then you can use run it by typing `./MDR_script.py`. 
 
-The script will automatically generate a "results" folder where figures and tables of each population and window size will be saved. The figures are saved in "pdf", while the tables are saved as ".txt", but they can be easily opened in a spreadsheet.
+The script will automatically generate a `results` folder where figures and tables of each population and window size will be saved. The figures will be saved in .pdf, while the tables will be compressed text files, but they can be easily opened in a spreadsheet.
 
 
 ## References
