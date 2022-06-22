@@ -5,7 +5,7 @@
 ########## SCRIPT FOR MODELLING IHS IN GEN WINDOWS ##########
 #############################################################
 
-#model association between iHS and genomic factors using a Mixture Density Regression
+#Model the association between iHS and genomic factors across genomic windows using a Mixture Density Regression.
 
 
 
