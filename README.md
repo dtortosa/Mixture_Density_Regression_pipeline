@@ -4,7 +4,7 @@ Pipeline used to test the association between the integrated haplotype Score (iH
 
 ## Instructions
 
-In order to run the MDR, you need to have the script [`MDR_script.py`](/MDR_script.py) and the folder [`data`](/data) in the same directory. The [`data`](/data) folder includes data of average iHS and the density (i.e., number) of iHS data points ([`mean_ihs_gene_windows`](/mean_ihs_gene_windows)), along with genomic factors ([`predictors_gene_windows`](/predictors_gene_windows)) across windows centered around human coding genes. We consider five window sizes: 50 kb, 100 kb, 200 kb, 500 kb and 1,000 kb. 
+In order to run the MDR, you need to have the script [`MDR_script.py`](/MDR_script.py) and the folder [`data`](/data) in the same directory. The [`data`](/data) folder includes data of average iHS and the density (i.e., number) of iHS data points ([`mean_ihs_gene_windows`](/data/mean_ihs_gene_windows)), along with genomic factors ([`predictors_gene_windows`](/data/predictors_gene_windows)) across windows centered around human coding genes. We consider five window sizes: 50 kb, 100 kb, 200 kb, 500 kb and 1,000 kb. 
 
 iHS was calculated across five human populations from the [1000 genomes project](https://www.internationalgenome.org/):
 
