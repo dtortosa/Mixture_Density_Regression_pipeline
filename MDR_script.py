@@ -429,7 +429,16 @@ def ihs_modelling_per_pop(selected_pop):
 		
 		#create a panda data frame with the wieght and pvalues
 		para_table = pd.DataFrame({'covariate': name, 'slope': model.weight, 'p_value': model.p_value})
-						
+		
+
+		##change the names of the covariates	
+		#create two lists with the original and extended covariate names
+		raw_names = ["Intercept", "n_ihs", "vip_distance", "expression_all_tissues", "testis_expression", "lympho_expression", "chip_immune", "cons_elements", "pip_v3", "gene_length", "gene_number", "chip_testis", "tbfs_density", "coding_density", "gc_content", "recombination_final", "chip_density"]
+		new_names = ["Intercept", "Number iHS data points", "Distance to VIPs", "Gene expression", "Gene expression in testis", "Gene expression in immune cells", "Regulatory density in immune cells (ChIP-seq)", "Density of conserved elements", "Number PPIs", "Gene length", "Gene number", "Regulatory density in testis (ChIP-seq)", "Regulatory density (DNaseI)", "Coding density", "GC-content", "Recombination rate", "Regulatory density (ChIP-seq)"]
+
+		#replace the the values of covariates with the new names
+		para_table.iloc[:,0] = para_table.iloc[:,0].replace(to_replace=raw_names, value=new_names)
+
 		#save the table
 		para_table.to_csv(path_or_buf=path_outside_container_outputs + '/tables' + '/' + selected_pop + '_' + selected_window + '_slopes_pvalues.txt.gz', sep='\t', header=True, index=False, compression='gzip')
 
@@ -502,3 +511,13 @@ pool.close()
 
 #wait for the completion of all scheduled jobs
 pool.join()
+
+
+##check we have all the expected files
+#calculate the number of tables and figures
+n_files = int(subprocess.check_output("find " + path_outside_container_outputs + " -type f | wc -l", shell=True))
+
+#check
+print('##############################################'); print('CHECK WE HAVE THE CORRECT NUMBER OF TABLES AND FIGURES AFTER RUNNING ANALYSES'); print('##############################################') 
+print(n_files == 50)
+print('##############################################')
