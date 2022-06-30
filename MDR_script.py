@@ -443,7 +443,7 @@ def ihs_modelling_per_pop(selected_pop):
 		para_table.iloc[:,0] = para_table.iloc[:,0].replace(to_replace=raw_names, value=new_names)
 
 		#save the table
-		para_table.to_csv(path_or_buf=path_outside_container_outputs + '/tables' + '/' + pop_abbreviations[selected_pop] + '_' + selected_window + '_slopes_pvalues.csv', sep='\t', header=True, index=False)
+		para_table.to_csv(path_or_buf=path_outside_container_outputs + '/tables' + '/' + pop_abbreviations[selected_pop] + '_' + selected_window + '_slopes_pvalues.csv', sep=',', header=True, index=False)
 
 		
 		##plot the distribution
