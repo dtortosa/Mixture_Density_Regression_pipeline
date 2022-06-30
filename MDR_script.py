@@ -492,7 +492,7 @@ def ihs_modelling_per_pop(selected_pop):
 		plt.title('Population: ' + selected_pop + ' - Window size: ' + selected_window)
 		
 		#we use instead plt.savefig to save the figure
-		plt.savefig(path_outside_container_outputs + '/figures' + '/' + selected_pop + '_' + selected_window + '_final_distributions.png', bbox_inches='tight')
+		plt.savefig(path_outside_container_outputs + '/figures' + '/' + pop_abbreviations[selected_pop] + '_' + selected_window + '_final_distributions.png', bbox_inches='tight')
 
 		#close the plot
 		plt.close()
