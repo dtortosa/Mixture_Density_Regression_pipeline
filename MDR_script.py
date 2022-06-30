@@ -81,6 +81,9 @@ list_pops_unique = np.unique(list_pops)
 list_pops_unique = list_pops_unique.tolist()
 
 
+##make a dict for getting the correct pop abbreviations
+pop_abbreviations = {"YRID": "YRI", "TSID": "TSI", "CEUD": "CEU", "CHBD": "CHB", "PELD": "PEL"}
+
 
 ##########################################################################
 ################## DEFINE THE FUNCTION TO BE PARALLELIZED ################
@@ -440,7 +443,7 @@ def ihs_modelling_per_pop(selected_pop):
 		para_table.iloc[:,0] = para_table.iloc[:,0].replace(to_replace=raw_names, value=new_names)
 
 		#save the table
-		para_table.to_csv(path_or_buf=path_outside_container_outputs + '/tables' + '/' + selected_pop + '_' + selected_window + '_slopes_pvalues.txt.gz', sep='\t', header=True, index=False, compression='gzip')
+		para_table.to_csv(path_or_buf=path_outside_container_outputs + '/tables' + '/' + pop_abbreviations[selected_pop] + '_' + selected_window + '_slopes_pvalues.csv', sep='\t', header=True, index=False)
 
 		
 		##plot the distribution

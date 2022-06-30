@@ -8,11 +8,11 @@ In order to run the MDR, you need to have the script [`MDR_script.py`](/MDR_scri
 
 iHS was calculated across five human populations from the [1000 genomes project](https://www.internationalgenome.org/):
 
-- Yoruba (YRID)
-- Toscani (TSID)
-- Utah residents (CEUD)
-- Han Chinese (CHBD)
-- Peruvians (PELD)
+- Yoruba (YRI)
+- Toscani (TSI)
+- Utah residents (CEU)
+- Han Chinese (CHB)
+- Peruvians (PEL)
 
 In order to estimate the correlation between iHS and the genomic factors, you have to type the command `chmod +x MDR_script.py` in the terminal and then you can run the script by typing `./MDR_script.py > MDR_script.out`. Note that you need python 3.8 and the corresponding python libraries installed in order to run this script (you can find them in the Imports section of [`MDR_script.py`](/MDR_script.py)). 
 
