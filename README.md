@@ -1,6 +1,6 @@
 # Mixture Density Regression-based analysis of iHS in human populations
 
-Pipeline used to test the association between the integrated haplotype Score (iHS; Voight *et al*., 2006) and multiple genomic factors across the human genome by using a Mixture Density Regression (MDR) approach.
+Pipeline used to test the association between the integrated haplotype Score (iHS; Voight *et al*., 2006) and multiple genomic factors across the human genome by using a Mixture Density Regression (MDR) model.
 
 ## Instructions
 
