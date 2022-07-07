@@ -5,7 +5,7 @@
 ########## SCRIPT FOR MODELLING IHS IN GEN WINDOWS ##########
 #############################################################
 
-#Model the association between iHS and genomic factors across genomic windows using a Mixture Density Regression.
+#Model the association between iHS and genomic factors across genomic windows using a Mixture Density Regression model.
 
 
 
@@ -50,7 +50,6 @@ path_outside_container_inputs = ''.join(path_outside_container_inputs)
 path_outside_container_outputs = [path_starting_folder, '/results']
 path_outside_container_outputs = ''.join(path_outside_container_outputs)
 
-
 #make some directories
 os.system('mkdir -p ' + path_outside_container_outputs)
 os.system('mkdir -p ' + path_outside_container_outputs + '/figures')
@@ -65,7 +64,7 @@ os.system('mkdir -p ' + path_outside_container_outputs + '/tables')
 #First, join paths to create the complete path to the iHS data
 path_to_ihs_data = ''.join([path_outside_container_inputs, '/mean_ihs_gene_windows/*'])
 
-#list all the files in that folder (ihs value per population and chromosome) including the whole path
+#list all the files in that folder including the whole path
 list_ihs_files_full_path = glob.glob(path_to_ihs_data) 
 
 #remove the path to the file name
@@ -85,6 +84,7 @@ list_pops_unique = list_pops_unique.tolist()
 pop_abbreviations = {"YRID": "YRI", "TSID": "TSI", "CEUD": "CEU", "CHBD": "CHB", "PELD": "PEL"}
 
 
+
 ##########################################################################
 ################## DEFINE THE FUNCTION TO BE PARALLELIZED ################
 ##########################################################################
@@ -100,7 +100,6 @@ def ihs_modelling_per_pop(selected_pop):
 	#bind the full path to the iHS data for the selected population
 	ihs_data_path = ''.join([path_outside_container_inputs, '/mean_ihs_gene_windows/', selected_pop, '_mean_ihs_gene_windows_final_v1.txt.gz'])
 	ihs_n_points_path = ''.join([path_outside_container_inputs, '/mean_ihs_gene_windows/', selected_pop, '_n_ihs_gene_windows_final_v1.txt.gz'])
-		#we also want the number of iHS data points per window as a predictor in the models.
 	
 	#load the iHS data for the selected population across all the window sizes
 	ihs_data = pd.read_csv(ihs_data_path, compression='gzip', header=0, sep='\t', low_memory=False)
@@ -112,7 +111,7 @@ def ihs_modelling_per_pop(selected_pop):
 	#First, join paths to create the complete path to the iHS data
 	path_to_predictor_data = ''.join([path_outside_container_inputs, '/predictors_gene_windows/*.txt'])
 	
-	#list of the file in that folder (ihs value per population and chromosome) including the whole path
+	#list of the files in that folder
 	list_predictors_files_full_path = glob.glob(path_to_predictor_data) 
 	
 	#save the name of the predictors separately. These are the names of the list of dataframes that we are going to create.
@@ -161,11 +160,11 @@ def ihs_modelling_per_pop(selected_pop):
 				#if the selected predictor names is NOT gene expression
 				if selected_predictor_name not in ['gene_expression_final_v5.txt']:
 	
-					#extract the name of the column for the [k] window
+					#extract the name of the second column
 					names_selected_predictor.append(selected_df.columns[1])
 				else: #if not, and hence the selected predictor is gene expression
 	
-					#set mean gene expression as the predictor. For now, only:
+					#select
 					names_selected_predictor.append('mean_expres_all_tissues')
 					names_selected_predictor.append('Testis')
 					names_selected_predictor.append('Cells - EBV-transformed lymphocytes')
@@ -242,10 +241,10 @@ def ihs_modelling_per_pop(selected_pop):
 				#create the mask for subseting the columns
 				mask = np.ones(data.shape[1], dtype=bool)
 				
-				#set the first element of mask as '0' instead of True, i.e., False.
+				#set the response as '0' instead of True, i.e., False.
 				mask[response_index] = 0
 				
-				#from data, take all the rows of the columns indicated as true in mask (only the first is False)
+				#from data, take all the rows of the columns indicated as true in mask (only the first is False), i.e., predictors
 				self.X = data[:, mask]
 				
 				#from data select the column of the response index
@@ -289,7 +288,7 @@ def ihs_modelling_per_pop(selected_pop):
 				#the 2-3 elements of 'para' are the two sd.
 				self.mixture_sd = self.para[2:4]
 				
-				#the 4 to the end elements of 'para' are the weights of the covariates including Bias (intercept).
+				#from 4 to the end elements of 'para' are the weights of the covariates including Bias (intercept).
 				self.weight = self.para[4:]
 		
 				#multiply the values of each covariate by the weights
@@ -397,7 +396,7 @@ def ihs_modelling_per_pop(selected_pop):
 					#likelihood ratio statistic
 					lln_ratio = 2. * (ori_likelihood - self.log_likelihood) 
 		
-					# follow chi square distribution
+					#follow chi square distribution
 					p_value = 1 - sp.stats.chi2.cdf(lln_ratio, 1) 
 		
 					#append the p vale into the previously empty list created
@@ -406,7 +405,7 @@ def ihs_modelling_per_pop(selected_pop):
 				#set disabled_weight to none
 				self.disabled_weight = None 
 				
-				#This line is done to run def __call__ and hence run one last time the eval function, this time with the final means, sds, and weights, calculating in that way the probability of adaptation according the weighted input of ALL covariates and the corresponding distributions and mixture. 
+				#This line is done to run def __call__ and hence run one last time the eval function, this time with the final means, sds, and weights, calculating in that way the probability according the weighted input of ALL covariates and the corresponding distributions and mixture. 
 				self(ori_para)
 		
 				#return the list of pvalues
@@ -430,7 +429,7 @@ def ihs_modelling_per_pop(selected_pop):
 		name = np.copy(header) #copy header names
 		name[0] = "Intercept" #set the first name as Intercept.
 		
-		#create a panda data frame with the wieght and pvalues
+		#create a panda data frame with the weights and pvalues
 		para_table = pd.DataFrame({'covariate': name, 'slope': model.weight, 'p_value': model.p_value})
 		
 
@@ -448,7 +447,7 @@ def ihs_modelling_per_pop(selected_pop):
 		
 		##plot the distribution
 		#open the plot
-		axes = plt.gca() #this only plots the axes
+		axes = plt.gca()
 
 		#set the font size for the whole plot
 		plt.rcParams.update({'font.size': 13})
@@ -463,10 +462,10 @@ def ihs_modelling_per_pop(selected_pop):
 		#define a function to do that
 		def plot_gaussian(mean, sd, xmin, xmax, weight, label, shape):
 			
-			#make a range betwwen the lowest and highest value of x (iHS), being each step of 0,01
+			#make a range between the lowest and highest value of x (iHS), being each step of 0,01
 			x = np.arange(xmin, xmax, 0.01)
 
-			#the y values would be a distribution 
+			#the y values would be the probability density function (PDF) multiplied by the corresponding weight (i.e., the gaussian component) 
 			y = sp.stats.norm.pdf(x, mean, sd) * weight
 
 			#plot using x, y, the shape of the line, label, width of the line and intensity of the color with alpha
@@ -491,7 +490,7 @@ def ihs_modelling_per_pop(selected_pop):
 		#plot the title
 		plt.title('Population: ' + selected_pop + ' - Window size: ' + selected_window)
 		
-		#we use instead plt.savefig to save the figure
+		#save the figure
 		plt.savefig(path_outside_container_outputs + '/figures' + '/' + pop_abbreviations[selected_pop] + '_' + selected_window + '_final_distributions.png', bbox_inches='tight')
 
 		#close the plot
