@@ -18,7 +18,7 @@ In order to estimate the correlation between iHS and the genomic factors, you ha
 
 The script will automatically generate a [`results`](/results) folder where figures and tables of each population and window size will be saved (5 populations x 5 windows sizes = 25 tables and 25 figures). You can check that all files have been created in [`MDR_script.out`](/MDR_script.out) once the script has been run. The figures will be saved as png, while the tables will be saved as csv.
 
-See this [bioRxiv preprint](https://www.biorxiv.org/content/10.1101/2021.12.20.473463v1) for further details.
+See this [bioRxiv preprint](https://doi.org/10.1101/2021.12.20.473463) for further details.
 
 
 ## References
